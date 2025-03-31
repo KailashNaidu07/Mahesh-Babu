@@ -41,24 +41,83 @@ window.addEventListener('scroll', function() {
   }
 });
     
-    // Counter Animation
-    const animateCounters = () => {
-      const counters = document.querySelectorAll('.counter');
-      const speed = 200;
-      
-      counters.forEach(counter => {
-        const target = +counter.getAttribute('data-target');
-        const count = +counter.innerText;
-        const increment = target / speed;
-        
-        if (count < target) {
-          counter.innerText = Math.ceil(count + increment);
-          setTimeout(animateCounters, 1);
-        } else {
-          counter.innerText = target;
-        }
+function animateCounters() {
+  const counters = document.querySelectorAll('.counter');
+  const statsSection = document.querySelector('.stats');
+
+  if (!statsSection) return; // Prevent errors if section is missing
+
+  const observer = new IntersectionObserver(
+      (entries, observer) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  counters.forEach(counter => {
+                      if (!counter.dataset.animated) { // Prevent multiple animations
+                          counter.dataset.animated = "true";
+                          const target = +counter.getAttribute('data-target');
+                          let currentCount = 0;
+                          const increment = Math.max(target / 100, 1); // Ensures increments are at least 1
+
+                          function updateCount() {
+                              currentCount += increment;
+                              if (currentCount < target) {
+                                  counter.innerText = Math.ceil(currentCount);
+                                  setTimeout(updateCount, 20); // Smooth animation
+                              } else {
+                                  counter.innerText = target;
+                              }
+                          }
+
+                          updateCount();
+                      }
+                  });
+
+                  observer.unobserve(entry.target); // Stop observing after activation
+              }
+          });
+      },
+      { root: null, threshold: 0.3 } // Only triggers when 30% of stats section is visible
+  );
+
+  observer.observe(statsSection);
+}
+document.addEventListener('DOMContentLoaded', function() {
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const movieCards = document.querySelectorAll('.movie-card');
+
+  filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+          // Remove active class from all buttons
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          // Add active class to clicked button
+          this.classList.add('active');
+          
+          const filterValue = this.getAttribute('data-filter').toLowerCase();
+          
+          // Filter movies
+          movieCards.forEach(card => {
+              const categories = card.getAttribute('data-category').toLowerCase().split(' ');
+              
+              // Debugging: Log the values to see what's being compared
+              console.log(`Filter: ${filterValue}, Categories: ${categories}`);
+
+              if (filterValue === 'all' || categories.includes(filterValue)) {
+                  card.style.display = 'block';
+              } else {
+                  card.style.display = 'none';
+              }
+          });
       });
-    };
+  });
+});
+
+
+
+// Run after page loads fully to avoid conflicts
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(animateCounters, 500);
+});
+
     
     // Initialize counters when section is in view
     const statsSection = document.querySelector('.stats');
