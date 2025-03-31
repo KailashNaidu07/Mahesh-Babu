@@ -1,331 +1,216 @@
+// Optimized version of your JS with improvements
 document.addEventListener('DOMContentLoaded', function() {
-  // ======================
-  // Mobile Navigation
-  // ======================
-  const hamburger = document.querySelector('.hamburger');
-  const navLinks = document.querySelector('.nav-links');
-  const navItems = document.querySelectorAll('.nav-links li');
+    // Cache DOM references
+    const DOM = {
+      hamburger: document.querySelector('.hamburger'),
+      navLinks: document.querySelector('.nav-links'),
+      navItems: document.querySelectorAll('.nav-links li'),
+      navbar: document.querySelector('.navbar'),
+      filterButtons: document.querySelectorAll('.filter-btn'),
+      movieCards: document.querySelectorAll('.movie-card'),
+      statsSection: document.querySelector('.stats'),
+      counters: document.querySelectorAll('.counter'),
+      readMoreBtn: document.getElementById('readMoreBtn'),
+      moreBio: document.getElementById('moreBio'),
+      fanForm: document.getElementById('fanForm'),
+      newsletterForm: document.querySelector('.newsletter-form'),
+      backToTop: document.querySelector('.back-to-top'),
+      heroSlider: document.querySelector('.hero-slider'),
+      slides: document.querySelectorAll('.hero-slider .slide')
+    };
   
-  if (hamburger && navLinks) {
-      hamburger.addEventListener('click', () => {
-          navLinks.classList.toggle('active');
-          hamburger.classList.toggle('active');
+    // ======================
+    // Mobile Navigation
+    // ======================
+    if (DOM.hamburger && DOM.navLinks) {
+      const toggleNav = () => {
+        DOM.navLinks.classList.toggle('active');
+        DOM.hamburger.classList.toggle('active');
+      };
+  
+      DOM.hamburger.addEventListener('click', toggleNav);
+      
+      DOM.navItems.forEach(item => {
+        item.addEventListener('click', () => {
+          DOM.navLinks.classList.remove('active');
+          DOM.hamburger.classList.remove('active');
+        });
       });
-      
-      // Close mobile menu when clicking a link
-      navItems.forEach(item => {
-          item.addEventListener('click', () => {
-              navLinks.classList.remove('active');
-              hamburger.classList.remove('active');
-          });
-      });
-  }
-
-  // ======================
-  // Enhanced Navbar Effect
-  // ======================
-  window.addEventListener('scroll', function() {
-      const navbar = document.querySelector('.navbar');
-      if (!navbar) return;
-      
-      const scrollPosition = window.scrollY;
-      
-      if (scrollPosition > 10) {
-          navbar.classList.add('scrolled');
+    }
+  
+    // ======================
+    // Enhanced Navbar Effect (with debounce)
+    // ======================
+    if (DOM.navbar) {
+      let lastScrollY = window.scrollY;
+      let ticking = false;
+  
+      const updateNavbar = () => {
+        const scrollY = window.scrollY;
+        const scrolledClass = 'scrolled';
+        
+        if (scrollY > 10) {
+          DOM.navbar.classList.add(scrolledClass);
           
-          // Dynamic blur based on scroll position (max 10px blur)
-          const blurAmount = Math.min(10, scrollPosition / 20);
-          navbar.style.backdropFilter = `blur(${blurAmount}px)`;
-          navbar.style.webkitBackdropFilter = `blur(${blurAmount}px)`;
+          const blurAmount = Math.min(10, scrollY / 20);
+          const opacity = Math.min(0.8, scrollY / 500);
           
-          // Dynamic opacity (gets darker as you scroll)
-          const opacity = Math.min(0.8, scrollPosition / 500);
-          navbar.style.backgroundColor = `rgba(0, 0, 0, ${opacity})`;
-      } else {
-          navbar.classList.remove('scrolled');
-          navbar.style.backdropFilter = 'blur(2px)';
-          navbar.style.webkitBackdropFilter = 'blur(2px)';
-          navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-      }
-  });
-
-  // ======================
-  // Movie Filter Functionality
-  // ======================
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const movieCards = document.querySelectorAll('.movie-card');
-
-  if (filterButtons.length && movieCards.length) {
-      filterButtons.forEach(button => {
-          button.addEventListener('click', function() {
-              // Remove active class from all buttons
-              filterButtons.forEach(btn => btn.classList.remove('active'));
-              // Add active class to clicked button
-              this.classList.add('active');
-              
-              const filterValue = this.getAttribute('data-filter').toLowerCase();
-              
-              // Filter movies
-              movieCards.forEach(card => {
-                  const categories = card.getAttribute('data-category').toLowerCase().split(' ');
-                  
-                  if (filterValue === 'all' || categories.includes(filterValue)) {
-                      card.style.display = 'block';
-                      setTimeout(() => {
-                          card.style.opacity = '1';
-                          card.style.transform = 'translateY(0)';
-                      }, 50);
-                  } else {
-                      card.style.opacity = '0';
-                      card.style.transform = 'translateY(20px)';
-                      setTimeout(() => {
-                          card.style.display = 'none';
-                      }, 300);
-                  }
-              });
-          });
-      });
-  }
-
-  // ======================
-  // Animated Counters
-  // ======================
-  function animateCounters() {
-      const counters = document.querySelectorAll('.counter');
-      const statsSection = document.querySelector('.stats');
-
-      if (!statsSection || !counters.length) return;
-
-      counters.forEach(counter => {
-          if (!counter.dataset.animated) {
-              counter.dataset.animated = "true";
-              const target = +counter.getAttribute('data-target');
-              const duration = 2000; // Animation duration in ms
-              const startTime = performance.now();
-              
-              function updateCount(currentTime) {
-                  const elapsedTime = currentTime - startTime;
-                  const progress = Math.min(elapsedTime / duration, 1);
-                  const currentCount = Math.floor(progress * target);
-                  
-                  counter.textContent = currentCount.toLocaleString();
-                  
-                  if (progress < 1) {
-                      requestAnimationFrame(updateCount);
-                  } else {
-                      counter.textContent = target.toLocaleString();
-                  }
-              }
-              
-              requestAnimationFrame(updateCount);
+          DOM.navbar.style.cssText = `
+            backdrop-filter: blur(${blurAmount}px);
+            -webkit-backdrop-filter: blur(${blurAmount}px);
+            background-color: rgba(0, 0, 0, ${opacity});
+          `;
+        } else {
+          DOM.navbar.classList.remove(scrolledClass);
+          DOM.navbar.style.cssText = `
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            background-color: rgba(255, 255, 255, 0.1);
+          `;
+        }
+        
+        ticking = false;
+      };
+  
+      const onScroll = () => {
+        lastScrollY = window.scrollY;
+        if (!ticking) {
+          window.requestAnimationFrame(updateNavbar);
+          ticking = true;
+        }
+      };
+  
+      window.addEventListener('scroll', onScroll);
+    }
+  
+    // ======================
+    // Movie Filter Functionality
+    // ======================
+    if (DOM.filterButtons.length && DOM.movieCards.length) {
+      const filterMovies = (filterValue) => {
+        DOM.movieCards.forEach(card => {
+          const categories = card.dataset.category.toLowerCase().split(' ');
+          const shouldShow = filterValue === 'all' || categories.includes(filterValue);
+          
+          if (shouldShow) {
+            card.style.display = 'block';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, 50);
+          } else {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => card.style.display = 'none', 300);
           }
+        });
+      };
+  
+      DOM.filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          DOM.filterButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          filterMovies(this.dataset.filter.toLowerCase());
+        });
       });
-  }
-
-  // Initialize counters when section is in view
-  const statsSection = document.querySelector('.stats');
-  if (statsSection) {
+    }
+  
+    // ======================
+    // Optimized Counter Animation
+    // ======================
+    if (DOM.statsSection && DOM.counters.length) {
+      const animateCounter = (counter, target, duration = 2000) => {
+        const startTime = performance.now();
+        
+        const updateCount = (currentTime) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          counter.textContent = Math.floor(progress * target).toLocaleString();
+          
+          if (progress < 1) {
+            requestAnimationFrame(updateCount);
+          } else {
+            counter.textContent = target.toLocaleString();
+          }
+        };
+        
+        requestAnimationFrame(updateCount);
+      };
+  
       const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                  animateCounters();
-                  observer.unobserve(entry.target);
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            DOM.counters.forEach(counter => {
+              if (!counter.dataset.animated) {
+                counter.dataset.animated = "true";
+                animateCounter(counter, +counter.dataset.target);
               }
-          });
+            });
+            observer.unobserve(entry.target);
+          }
+        });
       }, { threshold: 0.3 });
       
-      observer.observe(statsSection);
-  }
-
-  // ======================
-  // Read More Button
-  // ======================
-  const readMoreBtn = document.getElementById('readMoreBtn');
-  const moreBio = document.getElementById('moreBio');
+      observer.observe(DOM.statsSection);
+    }
   
-  if (readMoreBtn && moreBio) {
-      readMoreBtn.addEventListener('click', () => {
-          const isExpanded = moreBio.style.display === 'block';
-          moreBio.style.display = isExpanded ? 'none' : 'block';
-          readMoreBtn.textContent = isExpanded ? 'Read More' : 'Read Less';
-          
-          // Smooth scroll to maintain context
-          if (!isExpanded) {
-              setTimeout(() => {
-                  readMoreBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              }, 100);
-          }
-      });
-  }
-  
-  // ======================
-  // Smooth Scrolling
-  // ======================
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    // ======================
+    // Smooth Scrolling
+    // ======================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          const targetId = this.getAttribute('href');
-          if (targetId === '#') return;
-          
-          const targetElement = document.querySelector(targetId);
-          if (targetElement) {
-              window.scrollTo({
-                  top: targetElement.offsetTop - 80,
-                  behavior: 'smooth'
-              });
-          }
-      });
-  });
-  
-  // ======================
-  // Form Handling
-  // ======================
-  const fanForm = document.getElementById('fanForm');
-  if (fanForm) {
-      fanForm.addEventListener('submit', function(e) {
-          e.preventDefault();
-          
-          // Get form values
-          const name = document.getElementById('name').value;
-          const email = document.getElementById('email').value;
-          const message = document.getElementById('message').value;
-          
-          // Simple validation
-          if (!name || !email || !message) {
-              alert('Please fill in all fields');
-              return;
-          }
-          
-          // Here you would typically send the data to a server
-          alert(`Thank you for your message, ${name}! We'll get back to you soon.`);
-          
-          // Reset form
-          fanForm.reset();
-      });
-  }
-  
-  // Newsletter form
-  const newsletterForm = document.querySelector('.newsletter-form');
-  if (newsletterForm) {
-      newsletterForm.addEventListener('submit', function(e) {
-          e.preventDefault();
-          
-          const emailInput = this.querySelector('input');
-          const email = emailInput.value;
-          
-          if (!email) {
-              alert('Please enter your email address');
-              return;
-          }
-          
-          alert(`Thank you for subscribing with ${email}! You'll receive updates soon.`);
-          emailInput.value = '';
-      });
-  }
-  
-  // ======================
-  // Lightbox Gallery
-  // ======================
-  const galleryItems = document.querySelectorAll('.gallery-item');
-  galleryItems.forEach(item => {
-      item.addEventListener('click', function() {
-          const imgSrc = this.querySelector('img').src;
-          const imgAlt = this.querySelector('img').alt;
-          const lightbox = document.createElement('div');
-          lightbox.className = 'lightbox';
-          lightbox.innerHTML = `
-              <div class="lightbox-content">
-                  <img src="${imgSrc}" alt="${imgAlt}">
-                  <span class="close-lightbox">&times;</span>
-              </div>
-          `;
-          document.body.appendChild(lightbox);
-          
-          // Close lightbox
-          lightbox.querySelector('.close-lightbox').addEventListener('click', () => {
-              lightbox.remove();
-          });
-          
-          lightbox.addEventListener('click', (e) => {
-              if (e.target === lightbox) {
-                  lightbox.remove();
-              }
-          });
-          
-          // Close with ESC key
-          document.addEventListener('keydown', function closeOnEsc(e) {
-              if (e.key === 'Escape') {
-                  lightbox.remove();
-                  document.removeEventListener('keydown', closeOnEsc);
-              }
-          });
-      });
-  });
-  
-  // ======================
-  // Back to Top Button
-  // ======================
-  const backToTop = document.querySelector('.back-to-top');
-  if (backToTop) {
-      // Show/hide button based on scroll position
-      window.addEventListener('scroll', () => {
-          if (window.scrollY > 300) {
-              backToTop.style.opacity = '1';
-              backToTop.style.visibility = 'visible';
-          } else {
-              backToTop.style.opacity = '0';
-              backToTop.style.visibility = 'hidden';
-          }
-      });
-      
-      backToTop.addEventListener('click', () => {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const target = document.querySelector(targetId);
+        if (target) {
           window.scrollTo({
-              top: 0,
-              behavior: 'smooth'
+            top: target.offsetTop - 80,
+            behavior: 'smooth'
           });
+        }
       });
-  }
-
-  // ======================
-  // Hero Slider
-  // ======================
-  function initAutoHeroSlider() {
-      const slides = document.querySelectorAll('.hero-slider .slide');
-      if (!slides.length) return;
+    });
+  
+    // ======================
+    // Back to Top Button
+    // ======================
+    if (DOM.backToTop) {
+      window.addEventListener('scroll', () => {
+        DOM.backToTop.style.opacity = window.scrollY > 300 ? '1' : '0';
+        DOM.backToTop.style.visibility = window.scrollY > 300 ? 'visible' : 'hidden';
+      });
       
+      DOM.backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  
+    // ======================
+    // Optimized Hero Slider
+    // ======================
+    if (DOM.heroSlider && DOM.slides.length) {
       let currentSlide = 0;
-      const slideDuration = 5000; // 5 seconds
+      let slideInterval;
+      const slideDuration = 5000;
       
-      // Initialize first slide
-      slides[currentSlide].classList.add('active');
+      const changeSlide = () => {
+        DOM.slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % DOM.slides.length;
+        DOM.slides[currentSlide].classList.add('active');
+      };
       
-      // Function to change slides
-      function changeSlide() {
-          // Remove active class from current slide
-          slides[currentSlide].classList.remove('active');
-          
-          // Move to next slide (loop back to 0 if at end)
-          currentSlide = (currentSlide + 1) % slides.length;
-          
-          // Add active class to new current slide
-          slides[currentSlide].classList.add('active');
-      }
+      const startSlider = () => {
+        DOM.slides[currentSlide].classList.add('active');
+        slideInterval = setInterval(changeSlide, slideDuration);
+      };
       
-      // Start the auto-slide timer
-      let slideInterval = setInterval(changeSlide, slideDuration);
-      
-      // Pause on hover
-      const slider = document.querySelector('.hero-slider');
-      slider.addEventListener('mouseenter', () => {
-          clearInterval(slideInterval);
+      DOM.heroSlider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+      DOM.heroSlider.addEventListener('mouseleave', () => {
+        slideInterval = setInterval(changeSlide, slideDuration);
       });
       
-      slider.addEventListener('mouseleave', () => {
-          slideInterval = setInterval(changeSlide, slideDuration);
-      });
-  }
-
-  // Initialize the slider
-  initAutoHeroSlider();
-});
+      startSlider();
+    }
+  });
