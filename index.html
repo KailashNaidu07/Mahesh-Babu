@@ -1337,34 +1337,126 @@
     </section>
 
     <!-- Gallery Section -->
-    <section id="gallery" class="section gallery">
-        <div class="container">
-            <div class="section-title">
-                <h2>Photo Gallery</h2>
-                <p>Capturing the superstar's journey</p>
+ <!-- Photo Gallery Section -->
+<section id="gallery" class="section gallery-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Mahesh Babu Through The Years</h2>
+            <p>Explore the superstar's journey in stunning visuals</p>
+        </div>
+
+
+
+        <!-- Timeline Navigation -->
+      
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid">
+            <!-- Each gallery item has multiple data attributes for filtering -->
+            <div class="gallery-item" data-category="movies" data-year="1990s" data-color="dark">
+                <img src="images/mahesh/1.jpg" alt="Mahesh Babu as child actor" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                    <button class="view-btn" aria-label="View image">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
             </div>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="images/gallery/mahesh1.jpg" alt="Mahesh Babu at Film Event" loading="lazy">
+
+            <div class="gallery-item" data-category="movies" data-year="2000s" data-color="light">
+                <img src="images/mahesh/2.heic" alt="Mahesh Babu in Okkadu" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                    <button class="view-btn" aria-label="View image">
+                        <i class="fas fa-expand"></i>
+                    </button>
                 </div>
-                <div class="gallery-item">
-                    <img src="images/gallery/mahesh2.jpg" alt="Mahesh with Family" loading="lazy">
+            </div>
+
+            <div class="gallery-item" data-category="family" data-year="2010s" data-color="light">
+                <img src="images/mahesh/3.jpg" alt="Mahesh with family" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                    <button class="view-btn" aria-label="View image">
+                        <i class="fas fa-expand"></i>
+                    </button>
                 </div>
-                <div class="gallery-item">
-                    <img src="images/gallery/mahesh3.jpg" alt="Mahesh at Award Function" loading="lazy">
+            </div>
+
+            <div class="gallery-item" data-category="events" data-year="2020s" data-color="dark">
+                <img src="images/mahesh/5.jpg" alt="Mahesh at award show" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                    <button class="view-btn" aria-label="View image">
+                        <i class="fas fa-expand"></i>
+                    </button>
                 </div>
-                <div class="gallery-item">
-                    <img src="images/gallery/mahesh4.jpg" alt="Mahesh in Movie Still" loading="lazy">
+            </div>
+
+            <div class="gallery-item" data-category="behind-scenes" data-year="2010s" data-color="dark">
+                <img src="images/mahesh/4.jpg" alt="Mahesh on movie set" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                    <button class="view-btn" aria-label="View image">
+                        <i class="fas fa-expand"></i>
+                    </button>
                 </div>
-                <div class="gallery-item">
-                    <img src="images/gallery/mahesh5.jpg" alt="Mahesh Charity Event" loading="lazy">
+            </div>
+
+            <div class="gallery-item"  data-color="light">
+                <img src="images/mahesh/6.jpg" alt="Pokiri movie still" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                    <button class="view-btn" aria-label="View image">
+                        <i class="fas fa-expand"></i>
+                    </button>
                 </div>
-                <div class="gallery-item">
-                    <img src="images/gallery/mahesh6.jpg" alt="Mahesh Public Appearance" loading="lazy">
+            </div>
+
+            <!-- Add more gallery items as needed -->
+        </div>
+
+        <!-- View All Button -->
+        <div class="text-center">
+            <button class="load-more">Load More Memories</button>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="gallery-lightbox">
+        <div class="lightbox-content">
+            <span class="close-lightbox">&times;</span>
+            <img src="" alt="" class="lightbox-image">
+            <div class="lightbox-caption">
+                <h3 class="lightbox-title"></h3>
+                <p class="lightbox-description"></p>
+                <div class="lightbox-nav">
+                    <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                    <span class="image-counter"></span>
+                    <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Contact Section -->
     <section id="contact" class="section contact">
