@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mahesh Babu | The Prince of Tollywood</title>
+
+
+
+
+    
     <meta name="description" content="Official tribute page for Superstar Mahesh Babu - Actor, Producer, Philanthropist">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -21,12 +26,18 @@
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#bio">Biography</a></li>
-                <li><a href="#early-life">Early Life</a></li>
+               
                 <li><a href="#movies">Movies</a></li>
                 <li><a href="#awards">Awards</a></li>
                 <li><a href="#philanthropy">Philanthropy</a></li>
                 <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><div class="visitor-counter">
+                    <span class="counter-icon">👥</span>
+                    <span id="visitor-count">Loading...</span> visitors
+                </div>
+                    
+                  </li>
             </ul>
             <div class="hamburger">
                 <i class="fas fa-bars"></i>
@@ -1474,43 +1485,49 @@
                     </div>
                     <div class="info-item">
                         <i class="fas fa-envelope"></i>
-                        <span>fans@maheshbabu.com</span>
+                        <span>maheshbabufans@gmail.com</span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-phone"></i>
-                        <span>+91 9876543210</span>
+                        <span>+91 9491084767</span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-clock"></i>
                         <span>Monday - Friday: 9AM to 5PM</span>
                     </div>
+                    <div class="info-item whatsapp-group">
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://chat.whatsapp.com/YOUR_GROUP_INVITE_LINK" target="_blank" class="whatsapp-link">
+                            Join Our WhatsApp Fan Group
+                        </a>
+                    </div>
                     <div class="social-media">
                         <h4>Follow Mahesh Babu</h4>
                         <div class="social-icons">
-                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                            <a href="https://twitter.com/urstrulyMahesh" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                            <a href="https://www.instagram.com/urstrulymahesh/" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.facebook.com/MaheshBabuFC" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.youtube.com/user/urstrulyMahesh" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form id="fanForm">
+                    <form id="fanForm" action="#" method="POST">
                         <div class="form-group">
                             <label for="name">Your Name</label>
-                            <input type="text" id="name" class="form-control" required>
+                            <input type="text" id="name" name="name" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Email Address</label>
-                            <input type="email" id="email" class="form-control" required>
+                            <input type="email" id="email" name="email" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="subject">Subject</label>
-                            <input type="text" id="subject" class="form-control" required>
+                            <input type="text" id="subject" name="subject" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="message">Your Message</label>
-                            <textarea id="message" class="form-control" rows="5" required></textarea>
+                            <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
                         </div>
                         <button type="submit" class="submit-btn">Send Message</button>
                     </form>
@@ -1535,6 +1552,9 @@
                         <li><a href="#movies">Movies</a></li>
                         <li><a href="#awards">Awards</a></li>
                         <li><a href="#philanthropy">Philanthropy</a></li>
+                        
+                        
+
                     </ul>
                 </div>
                 <div class="footer-newsletter">
@@ -1546,10 +1566,56 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 Mahesh Babu Tribute Page. All Rights Reserved.</p>
+                <p>&copy; 2025 Mahesh Babu Tribute Page. All Rights Reserved.</p>
                 <p>Created by Mahesh Babu Fans | Not affiliated with GMB Entertainment</p>
             </div>
         </div>
+
+        <a href='https://www.free-counters.org/'>powered by Free-Counters.org</a> <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=84405ea58777c7d85e61a2c35811c60f928d5903'></script>
+        <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1327081/t/2"></script>
+
+
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+            import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+    
+            // Your Firebase configuration (add missing databaseURL)
+            const firebaseConfig = {
+                apiKey: "AIzaSyBjy0qLhykfb9ptRsGvC5WvZz5VpV34nHQ",
+                authDomain: "visitor-count-89667.firebaseapp.com",
+                databaseURL: "https://visitor-count-89667-default-rtdb.firebaseio.com", // THIS WAS MISSING
+                projectId: "visitor-count-89667",
+                storageBucket: "visitor-count-89667.appspot.com",
+                messagingSenderId: "398820697209",
+                appId: "1:398820697209:web:68ceda27327a0eaaf260a8"
+            };
+    
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const db = getDatabase(app);
+            const counterRef = ref(db, 'visitorCount');
+    
+            // Update counter (transaction ensures accurate counting)
+            runTransaction(counterRef, (currentValue) => {
+                return (currentValue || 0) + 1;
+            }).then(() => {
+                console.log("Counter updated!");
+            }).catch((error) => {
+                console.error("Transaction failed: ", error);
+            });
+    
+            // Display real-time updates
+            onValue(counterRef, (snapshot) => {
+                const count = snapshot.val();
+                document.getElementById('visitor-count').textContent = count.toLocaleString();
+            }, (error) => {
+                console.error("Error reading counter: ", error);
+                document.getElementById('visitor-count').textContent = "Error";
+            });
+        </script>
+  
+  
+
     </footer>
 
     <!-- Scripts -->

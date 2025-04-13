@@ -70,7 +70,17 @@ body {
 }
 
 /* Navigation */
-
+.visitor-counter {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  padding: 10px;
+  background: #f0f0f0;
+  border-radius: 5px;
+  display: inline-block;
+}
+.counter-icon {
+  margin-right: 5px;
+}
 
 
 
@@ -1456,6 +1466,24 @@ animation-play-state: paused;
 }
 
 /* Contact Section */
+
+
+.whatsapp-group {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.whatsapp-link {
+  color: black; /* WhatsApp brand color */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.whatsapp-link:hover {
+  text-decoration: underline;
+}
+
 .contact {
   background-color: var(--white);
 }
