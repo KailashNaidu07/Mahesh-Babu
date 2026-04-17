@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
 </head>
 <body>
     <!-- Navigation -->
@@ -30,14 +31,15 @@
                 <li><a href="#movies">Movies</a></li>
                 <li><a href="#awards">Awards</a></li>
                 <li><a href="#philanthropy">Philanthropy</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><div class="visitor-counter">
-                    <span class="counter-icon">👥</span>
-                    <span id="visitor-count">Loading...</span> visitors
-                </div>
-                    
-                  </li>
+
+              <li>
+    <a href="https://chat.whatsapp.com/DBThPCwa1OcLf9flnMGysL?mode=gi_t" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       style="display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: white; padding: 8px 16px; border-radius: 50px; text-decoration: none;">
+        Join <i class="fab fa-whatsapp" style="font-size: 18px;"></i>
+    </a>
+</li>
             </ul>
             <div class="hamburger">
                 <i class="fas fa-bars"></i>
@@ -1343,198 +1345,62 @@
         </div>
     </div>
 </section>
-
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fanSection = document.getElementById('fan-tribute');
+    const video = fanSection.querySelector('video');
+    
+    if (!video) return;
+    
+    // Intersection Observer to detect when section is visible
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // User is on the fan-tribute section - play video
+                video.play().catch(error => {
+                    // Autoplay might be blocked by browser
+                    console.log('Autoplay prevented:', error);
+                });
+            } else {
+                // User moved away - pause video
+                video.pause();
+            }
+        });
+    }, {
+        threshold: 0.3 // Video starts playing when 30% of section is visible
+    });
+    
+    observer.observe(fanSection);
+    
+    // Optional: Pause video when page is hidden (user switches tabs)
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            video.pause();
+        } else if (isElementInViewport(fanSection)) {
+            video.play().catch(e => console.log('Play prevented:', e));
+        }
+    });
+    
+    // Helper function to check if element is in viewport
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.7 &&
+            rect.bottom >= 0
+        );
+    }
+});
+</script>
         
     </section>
 
     <!-- Gallery Section -->
- <!-- Photo Gallery Section -->
-<section id="gallery" class="section gallery-section">
-    <div class="container">
-        <div class="section-title">
-            <h2>Mahesh Babu Through The Years</h2>
-            <p>Explore the superstar's journey in stunning visuals</p>
-        </div>
 
 
 
-        <!-- Timeline Navigation -->
-      
 
-        <!-- Gallery Grid -->
-        <div class="gallery-grid">
-            <!-- Each gallery item has multiple data attributes for filtering -->
-            <div class="gallery-item" data-category="movies" data-year="1990s" data-color="dark">
-                <img src="images/mahesh/1.jpg" alt="Mahesh Babu as child actor" loading="lazy">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3></h3>
-                        <p></p>
-                    </div>
-                    <button class="view-btn" aria-label="View image">
-                        <i class="fas fa-expand"></i>
-                    </button>
-                </div>
-            </div>
 
-            <div class="gallery-item" data-category="movies" data-year="2000s" data-color="light">
-                <img src="images/mahesh/2.heic" alt="Mahesh Babu in Okkadu" loading="lazy">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3></h3>
-                        <p></p>
-                    </div>
-                    <button class="view-btn" aria-label="View image">
-                        <i class="fas fa-expand"></i>
-                    </button>
-                </div>
-            </div>
 
-            <div class="gallery-item" data-category="family" data-year="2010s" data-color="light">
-                <img src="images/mahesh/3.jpg" alt="Mahesh with family" loading="lazy">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3></h3>
-                        <p></p>
-                    </div>
-                    <button class="view-btn" aria-label="View image">
-                        <i class="fas fa-expand"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="events" data-year="2020s" data-color="dark">
-                <img src="images/mahesh/5.jpg" alt="Mahesh at award show" loading="lazy">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3></h3>
-                        <p></p>
-                    </div>
-                    <button class="view-btn" aria-label="View image">
-                        <i class="fas fa-expand"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="behind-scenes" data-year="2010s" data-color="dark">
-                <img src="images/mahesh/4.jpg" alt="Mahesh on movie set" loading="lazy">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3></h3>
-                        <p></p>
-                    </div>
-                    <button class="view-btn" aria-label="View image">
-                        <i class="fas fa-expand"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="gallery-item"  data-color="light">
-                <img src="images/mahesh/6.jpg" alt="Pokiri movie still" loading="lazy">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3></h3>
-                        <p></p>
-                    </div>
-                    <button class="view-btn" aria-label="View image">
-                        <i class="fas fa-expand"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Add more gallery items as needed -->
-        </div>
-
-        <!-- View All Button -->
-        <div class="text-center">
-            <button class="load-more">Load More Memories</button>
-        </div>
-    </div>
-
-    <!-- Lightbox Modal -->
-    <div class="gallery-lightbox">
-        <div class="lightbox-content">
-            <span class="close-lightbox">&times;</span>
-            <img src="" alt="" class="lightbox-image">
-            <div class="lightbox-caption">
-                <h3 class="lightbox-title"></h3>
-                <p class="lightbox-description"></p>
-                <div class="lightbox-nav">
-                    <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
-                    <span class="image-counter"></span>
-                    <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Get In Touch</h2>
-                <p>Connect with Mahesh Babu's fan community</p>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Contact Information</h3>
-                    <div class="info-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Hyderabad, Telangana, India</span>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>maheshbabufans@gmail.com</span>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+91 9491084767</span>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-clock"></i>
-                        <span>Monday - Friday: 9AM to 5PM</span>
-                    </div>
-                    <div class="info-item whatsapp-group">
-                        <i class="fab fa-whatsapp"></i>
-                        <a href="https://chat.whatsapp.com/YOUR_GROUP_INVITE_LINK" target="_blank" class="whatsapp-link">
-                            Join Our WhatsApp Fan Group
-                        </a>
-                    </div>
-                    <div class="social-media">
-                        <h4>Follow Mahesh Babu</h4>
-                        <div class="social-icons">
-                            <a href="https://twitter.com/urstrulyMahesh" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
-                            <a href="https://www.instagram.com/urstrulymahesh/" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.facebook.com/MaheshBabuFC" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://www.youtube.com/user/urstrulyMahesh" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <form id="fanForm" action="#" method="POST">
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Your Message</label>
-                            <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -1571,48 +1437,7 @@
             </div>
         </div>
 
-        <a href='https://www.free-counters.org/'>powered by Free-Counters.org</a> <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=84405ea58777c7d85e61a2c35811c60f928d5903'></script>
-        <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1327081/t/2"></script>
-
-
-        <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-            import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
-    
-            // Your Firebase configuration (add missing databaseURL)
-            const firebaseConfig = {
-                apiKey: "AIzaSyBjy0qLhykfb9ptRsGvC5WvZz5VpV34nHQ",
-                authDomain: "visitor-count-89667.firebaseapp.com",
-                databaseURL: "https://visitor-count-89667-default-rtdb.firebaseio.com", // THIS WAS MISSING
-                projectId: "visitor-count-89667",
-                storageBucket: "visitor-count-89667.appspot.com",
-                messagingSenderId: "398820697209",
-                appId: "1:398820697209:web:68ceda27327a0eaaf260a8"
-            };
-    
-            // Initialize Firebase
-            const app = initializeApp(firebaseConfig);
-            const db = getDatabase(app);
-            const counterRef = ref(db, 'visitorCount');
-    
-            // Update counter (transaction ensures accurate counting)
-            runTransaction(counterRef, (currentValue) => {
-                return (currentValue || 0) + 1;
-            }).then(() => {
-                console.log("Counter updated!");
-            }).catch((error) => {
-                console.error("Transaction failed: ", error);
-            });
-    
-            // Display real-time updates
-            onValue(counterRef, (snapshot) => {
-                const count = snapshot.val();
-                document.getElementById('visitor-count').textContent = count.toLocaleString();
-            }, (error) => {
-                console.error("Error reading counter: ", error);
-                document.getElementById('visitor-count').textContent = "Error";
-            });
-        </script>
+      
   
   
 

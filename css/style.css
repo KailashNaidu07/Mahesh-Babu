@@ -2083,3 +2083,190 @@ textarea.form-control {
       font-size: 1.2rem;
   }
 }
+
+
+.social-icons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.social-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.social-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* Instagram */
+.social-icon.instagram {
+  background: #f0f2f5;
+  color: #555;
+}
+.social-icon.instagram:hover {
+  background: #E1306C;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Facebook */
+.social-icon.facebook {
+  background: #f0f2f5;
+  color: #555;
+}
+.social-icon.facebook:hover {
+  background: #3b5998;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* LinkedIn */
+.social-icon.linkedin {
+  background: #f0f2f5;
+  color: #555;
+}
+.social-icon.linkedin:hover {
+  background: #0077B5;
+  color: white;
+  transform: scale(1.1);
+}
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+.contributors-section {
+    background: linear-gradient(135deg, #000428 0%, #004e92 100%);
+    padding: 40px 20px;
+    color: white;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.section-subtitle {
+    font-size: 1rem;
+    margin-bottom: 30px;
+    color: #a1c4fd;
+}
+
+.contributors-scroll {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 20px 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.contributors-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.contributor-card {
+    flex: 0 0 280px;
+    scroll-snap-align: start;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.contributor-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.contributor-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    margin: 0 auto 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.contributor-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.contributor-role {
+    font-size: 0.9rem;
+    color: #a1c4fd;
+    margin-bottom: 15px;
+}
+
+.contributor-bio {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.contributor-social {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.scroll-indicator {
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.scroll-arrow {
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateX(0);}
+    40% {transform: translateX(-5px);}
+    60% {transform: translateX(5px);}
+}
